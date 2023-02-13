@@ -1,0 +1,54 @@
+body
+{
+	background: #F8F8F8;
+}
+.headcol {
+	/*position: absolute;
+	width: 5em;
+	left: 0;
+	top: auto;
+	border-top-width: 1px;*/
+	/*only relevant for first row*/
+	/*margin-top: -1px;*/
+	/*compensate for top border*/
+	/*	position: -webkit-sticky;
+	position: sticky;
+	background-color: white;*/
+	position: sticky;
+	left: 0;
+}
+em
+{
+color:#CCC;
+}
+.demodiv
+{
+	width:auto;
+	padding:12px 12px 2px 12px;
+	display:inline-block;
+	margin-top:1px;
+	border:1px solid #ccc;
+}
+.demodiv.active
+{
+	border:1px solid #FF9900;
+	margin:0px;
+}
+.demodiv p
+{
+	clear:both;
+	margin:0px !important;
+	text-align:center;
+	min-height:24px;
+}
+.tabbar
+{
+	margin-left:10px;
+	margin-bottom:20px;
+}
+.tabber ul li a
+{
+	height:96px !important;
+}
+.justify{text-align:justify;line-height:22px;}
+

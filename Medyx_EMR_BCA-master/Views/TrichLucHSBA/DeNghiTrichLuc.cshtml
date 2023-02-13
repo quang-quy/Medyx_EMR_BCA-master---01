@@ -1,0 +1,238 @@
+﻿
+@{
+    ViewData["Title"] = "DeNghiTrichLuc";
+    Layout = "~/Views/Shared/_AdminLTE.cshtml";
+}
+@section scripts{
+    <script src="~/Assets/Client/ViewModel/DeNghiTrichLuc/DeNghiTrichLucViewModel.js"></script>
+}
+@{
+    var kt = Context.Request.Query["KhaiThac"];
+    var khaithac = Context.Request.Query["KhaiThac"].ToString() == "True" ? true : false;
+    Medyx_EMR_BCA.Models.DBConText.UserProfileSessionData Model = ViewData["UserProfileSessionData"] as Medyx_EMR_BCA.Models.DBConText.UserProfileSessionData;
+    var ListRoleSession = Model.ListRoleSession;
+    var QuyenXem = ListRoleSession.Where(x => x.ActionDetailsName == "/trichlucHSBA/DeNghiTrichLuc/Modify").Count() > 0 ? "true" : "false";
+    var ImportDanhMuc = ListRoleSession.Where(x => x.ActionDetailsName == "/trichlucHSBA/DeNghiTrichLuc/ImportDanhMuc").Count() > 0;
+    var ExportExcel = ListRoleSession.Where(x => x.ActionDetailsName == "/trichlucHSBA/DeNghiTrichLuc/ExportExcel").Count() > 0;
+}
+@*<input id="txtQuyenXem" type="hidden" value='@(HTC.WEB.NIOEH.Core.HTCCheckRoles.CheckQuyenAction("/Client/DeNghiTrichLuc/Modify")? "true" : "false")' />*@
+<input id="txtQuyenXem" type="hidden" value='@QuyenXem' />
+<div class="panel" style="overflow:hidden">
+    <div id="loader" data-bind="visible: loading()" class="loader loader-center">Loading...</div>
+    <div class="panel-body" style="padding-top:0px">
+        <div class="box-header" style="padding-top:0px;padding-bottom:0px">
+            <div class="row" style="padding-top:0px;padding-bottom:0px">
+                <div class="col-xs-6" style="padding:0px!important;margin:0px!important">
+                    <h4><b>KHAI THÁC HỒ SƠ BỆNH ÁN</b></h4>
+                </div>
+                <div class="col-xs-6" style="margin-top:5px; text-align:right;padding:0px" tabindex="3">
+                    @*<button title="Import dữ liệu" data-bind="click: $root.Import" class="btn btn-info btn-xs btnImport @(HTC.WEB.NIOEH.Core.HTCCheckRoles.CheckQuyenAction("/Client/DeNghiTrichLuc/ImportDanhMuc") ? "" : "hidden")"><span class="glyphicon glyphicon-import"></span>&nbsp;&nbsp;Import</button>
+                        <button title="Export dữ liệu" data-bind="click: $root.Export" class="btn btn-info btn-xs btnExport @(HTC.WEB.NIOEH.Core.HTCCheckRoles.CheckQuyenAction("/Client/DeNghiTrichLuc/ExportDeNghiTrichLuc") ? "" : "hidden")"><span class="glyphicon glyphicon-export"></span>&nbsp;&nbsp;Export</button>
+                        <button title="Filter" class="btn btn-info btn-xs btnFilter"><span class="glyphicon glyphicon-filter"></span>&nbsp;&nbsp;Filter</button>
+                        <button title="Thoát" class="btn btn-info btn-xs btnExit @(HTC.WEB.NIOEH.Core.HTCCheckRoles.CheckQuyenAction("") ? "" : "hidden")"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;F10 - Thoát</button>*@
+                    <button title="Xem" data-bind="click: $root.loadData" class="btn btn-info btn-xs btnControl-Print"><span class="glyphicon glyphicon-hd-video"></span>&nbsp;&nbsp;Xem</button>
+                    <button title="Thêm mới" data-bind="click: $root.Import" class="btn btn-info btn-xs btnImport @((khaithac==false?ImportDanhMuc:false) ? "" : "hidden")"><span class="glyphicon glyphicon-import"></span>&nbsp;&nbsp;Thêm mới</button>
+                    <button title="In phiếu" data-bind="click: $root.printListDN" class="btn btn-info btn-xs btnExport @((khaithac==false?ExportExcel:false) ? "" : "hidden")"><span class="glyphicon glyphicon-export"></span>&nbsp;&nbsp;In phiếu</button>
+                    <button title="In HSBA" data-bind="click: $root.printListHSBA" class="btn btn-info btn-xs btnExport @((khaithac==true?ExportExcel:khaithac) ? "" : "hidden")"><span class="glyphicon glyphicon-export"></span>&nbsp;&nbsp;In HSBA</button>
+                    <button title="Filter" class="btn btn-info btn-xs btnFilter"><span class="glyphicon glyphicon-filter"></span>&nbsp;&nbsp;Filter</button>
+                    <button title="Thoát" class="btn btn-info btn-xs btnExit"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;F10 - Thoát</button>
+                </div>
+            </div>
+            <div class="row" style="padding-top:0px;padding-bottom:0px">
+                <div class="col-xs-1"><b>Loại đơn:</b></div>
+                <div class="col-xs-4">
+                    <div id="cboLoaiDeNghiF" tabindex="4"></div>
+                </div>
+                <div class="col-xs-1"><b>Từ ngày:</b></div>
+                <div class="col-xs-1"><input type="text" id="dtTuNgayDN" style="width:100%!important" /></div>
+                <div class="col-xs-1"><b>Đến ngày:</b></div>
+                <div class="col-xs-1"><input type="text" id="dtDenNgayDN" style="width:100%!important" /></div>
+                <div class="col-xs-1" id="divDuyetF">
+                    <input type="checkbox" id="chkDuyetF" name="chkDuyetF" />
+                    <label for="chkDuyetF"> Duyệt</label>
+                </div>
+            </div>
+            </div>
+        <div class="box-body" id="boxBody" style="padding-top:0px">
+            <div class="row" style="padding:0px;padding:0px">
+                <div class="col-xs-12">
+                    <div id="cboColumn" tabindex="4" style="text-align:right"></div>
+                </div>
+                <table id="table" class="table table-responsive table-fixed table-striped table-bordered responsive-utilities scroll jambo_table table-hover" style="padding:0px!important;margin:0px!important;height:500px!important">
+                    @*@{Html.RenderAction("TableHeader", "Home");}*@
+                    <partial name="~/Views/Shared/_TableHeader.cshtml" />
+                    <tbody id="tbody" class="table-tbody searchable table-container" style="overflow-x:hidden" data-bind="foreach: DeNghiTrichLucs">
+                        <tr data-bind="template :{name: $root.displayMode, data : $data}, event: { dblclick:$root.edit, 'keyup': $root.upAndDown},click: $root.selectItem, css: {'danger':$root.selectedItem() == $data},attr: {id:$data.SoPhieu}" tabindex="1">
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            @*@{Html.RenderAction("PagingTable", "Home");}*@
+            <partial name="~/Views/Shared/_PagingTable.cshtml" />
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ThongTinTrichLucPopUp" role="dialog" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog" style="width:100%!important">
+        @*@{Html.RenderAction("ImportView", "Home");}*@
+        @*<partial name="~/Views/Shared/_ImportView.cshtml" />*@
+        <div class="panel panel-primary">
+            <div class="panel-heading" style="padding:2px;margin:2px;">
+                <div class="col-xs-12">
+                    <button type="button" class="btn btn-primary close" style="color:white" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"><b>PHIẾU ĐỀ NGHỊ TRÍCH LỤC HỒ SƠ BỆNH ÁN</b></h4>
+                </div>
+            </div>
+            <div class="panel-body" id="cTBody" style="padding-top:2px;padding-bottom:2px;margin:2px">
+                <div class="row col-xs-12">
+                    <div class="col-xs-1"><b>Loại đơn(*):</b></div>
+                    <div class="col-xs-4">
+                        @*<select id="cboLoaiDeNghi" style="width:100%!important;">
+                                <option value="0">ĐƠN XIN TRÍCH SAO BỆNH ÁN</option>
+                                <option value="1">ĐƠN XIN PHOTO BỆNH ÁN</option>
+                                <option value="2">ĐƠN XIN CẤP LẠI GIẤY RA VIỆN</option>
+                            </select>*@
+                        <div id="cboLoaiDeNghi" tabindex="4"></div>
+                    </div>
+                    
+                    <div class="col-xs-0-5">
+                        <input type="checkbox" id="chkHuy" name="chkHuy" />
+                        <label for="chkHuy"> Hủy</label>
+                    </div>
+                    <div class="col-xs-0-5">
+                        <input type="checkbox" id="chkDuyet" name="chkDuyet" />
+                        <label for="chkDuyet"> Duyệt</label>
+                    </div>
+                    <div class="col-xs-1" id="lblNgayDuyet"><b>Ngày duyệt:</b></div>
+                    <div class="col-xs-1"><input type="text" id="dtNgayDuyet" style="width:100%!important" /></div>
+                </div>
+                <div class="row col-xs-12">
+                    <div class="col-xs-1"><b>Người đề nghị*:</b></div>
+                    <div class="col-xs-2"><input type="text" id="txtHoTenNguoiDeNghi" style="width:100%!important;" /></div>
+                    <div class="col-xs-1"><b>Ngày sinh*:</b></div>
+                    <div class="col-xs-1"><input type="text" id="dtNgaySinh" style="width:100%!important" /></div>
+                    <div class="col-xs-1"><b>Đơn vị công tác:</b></div>
+                    <div class="col-xs-6"><input type="text" id="txtDVCT" style="width:100%!important;" /></div>
+                </div>
+                <div class="row col-xs-12">
+                    <div class="col-xs-1"><b>Số CMT(*):</b></div>
+                    <div class="col-xs-2"><input type="text" id="txtSoCMT" style="width:100%!important;" /></div>
+                    <div class="col-xs-1"><b>Ngày cấp:</b></div>
+                    <div class="col-xs-1"><input type="text" id="dtNgayCapCMT" style="width:100%!important" /></div>
+                    <div class="col-xs-1"><b>Nơi cấp:</b></div>
+                    <div class="col-xs-6"><input type="text" id="txtNoiCapCMT" style="width:100%!important;" /></div>
+                </div>
+                <div class="row col-xs-12">
+                    <div class="col-xs-1"><b>Là:</b></div>
+                    <div class="col-xs-2"><input type="text" id="txtQHBN" style="width:100%!important;" /></div>
+                    <div class="col-xs-1"><b>của bệnh nhân*:</b></div>
+                    <div class="col-xs-4"><input type="text" id="txtHoTenBN" style="width:100%!important;" /></div>
+                    <div class="col-xs-1"><b>Mã bệnh án(*):</b></div>
+                    <div class="col-xs-2"><input type="text" id="txtMaBA" style="width:100%!important" /></div>
+                    <div class="col-xs-1">
+                        <button type="submit" id="btnFindMaBA" data-bind="click:$root.findHSBA" class="btn btn-large btn-primary"><span class="glyphicon glyphicon-search"></span>&nbsp;&nbsp;Tìm kiếm</button>
+                    </div>
+                </div>
+                <div class="row col-xs-12">
+                    <div class="col-xs-1"><b>Địa chỉ:</b></div>
+                    <div class="col-xs-11"><input type="text" id="txtDiaChi" style="width:100%!important;" /></div>
+                </div>
+                <div class="row col-xs-12">
+                    <div class="col-xs-1"><b>Thời gian vừa qua:</b></div>
+                    <div class="col-xs-4"><input type="text" id="txtTGVQ" style="width:100%!important;" /></div>
+                    <div class="col-xs-2"><b> đã nằm điều trị tại Viện/ Khoa(*):</b></div>
+                    <div class="col-xs-5"><div id="cboKhoa" tabindex="4"></div></div>
+                </div>
+                <div class="row col-xs-12">
+                    <div class="col-xs-1"><b>Từ ngày(*):</b></div>
+                    <div class="col-xs-1"><input type="text" id="dtTuNgay" style="width:100%!important;" /></div>
+                    <div class="col-xs-1"><b>đến ngày(*):</b></div>
+                    <div class="col-xs-1"><input type="text" id="dtDenNgay" style="width:100%!important" /></div>
+                    <div class="col-xs-1"><b>Lý do xin:</b></div>
+                    <div class="col-xs-7"><input type="text" id="txtLyDo" style="width:100%!important" /></div>
+                </div>
+                <div id="divBaoTu">
+                    <div class="row col-xs-12">
+                        <div class="col-xs-2"><b>Ghi cụ thể sự nhầm lẫn:</b></div>
+                        <div class="col-xs-10"><input type="text" id="txtNhamLan" style="width:100%!important;" /></div>
+                    </div>
+                    <div class="row col-xs-12">
+                        <div class="col-xs-2"><b>Giấy tờ chứng minh sự nhầm lẫn:</b></div>
+                        <div class="col-xs-10"><input type="text" id="txtCMNhamLan" style="width:100%!important;" /></div>
+                    </div>
+                    <div class="row col-xs-12">
+                        <div class="col-xs-2"><b>Ghi cụ thể mất, rách, nát:</b></div>
+                        <div class="col-xs-10"><input type="text" id="txtMatRach" style="width:100%!important;" /></div>
+                    </div>
+                </div>
+                <div class="row col-xs-12">
+                    <table id="tableDSBN" class="table table-responsive table-fixed table-striped table-bordered responsive-utilities scroll jambo_table table-hover" style="padding:0px!important;margin:0px!important;height:200px!important">
+                        <thead id="theadBN">
+                            <tr>
+                                <th id="ID" style="width: 5%;">
+                                    <span>ID</span>
+                                </th>
+                                <th id="MaBA" style="width: 8%;">
+                                    <span>Mã bệnh án</span>
+                                </th>
+                                <th id="MaBN" style="width: 7%;">
+                                    <span>Mã bệnh nhân</span>
+                                </th>
+                                <th id="Hoten" style="width: 20%;">
+                                    <span>Tên bệnh nhân</span>
+                                </th>
+                                <th id="GT" style="width: 5%;">
+                                    <span>Giới tính</span>
+                                </th>
+                                <th id="NgaySinh" style="width: 10%;">
+                                    <span>Ngày Sinh</span>
+                                </th>
+                                <th id="KhoaDT" style="width: 10%;">
+                                    <span>Khoa điều trị</span>
+                                </th>
+                                <th id="TenBenh" style="width: 15%;">
+                                    <span>Tên bệnh</span>
+                                </th>
+                                <th id="NgayVV" style="width: 10%;">
+                                    <span>Ngày vào viện</span>
+                                </th>
+                                <th id="NgayRV" style="width: 10%;">
+                                    <span>Ngày ra viện</span>
+                                </th>
+                            </tr>
+
+                        </thead>
+                        <tbody id="tbodyBN" class="table-tbody searchable table-container" style="overflow-x:hidden;width:100%!important;" data-bind="foreach: HSBAs">
+                            <tr data-bind="template :{data : $data}, event: { dblclick:$root.editBA, 'keyup': $root.upAndDown},click: $root.editBA, css: {'danger':$root.selectedItem() == $data},attr: {id:$data.ID}" tabindex="1">
+                                <td data-bind="text : ID, style: {width:$root.columnBNs()[0].width, fontWeight: 'bold'},visible:$root.columnBNs()[0].visible()"> </td>
+                                <td data-bind="text : MaBA, style: {width:$root.columnBNs()[1].width, fontWeight: 'bold'},visible:$root.columnBNs()[1].visible()"> </td>
+                                <td data-bind="text : MaBN, style: {width:$root.columnBNs()[2].width, fontWeight: 'bold'},visible:$root.columnBNs()[2].visible()"> </td>
+                                <td data-bind="text : Hoten, style: {width:$root.columnBNs()[3].width, fontWeight: 'bold'},visible:$root.columnBNs()[3].visible()"> </td>
+                                <td data-bind="text : GT, style: {width:$root.columnBNs()[4].width, fontWeight: 'bold'},visible:$root.columnBNs()[4].visible()"> </td>
+                                <td data-bind="text : NgaySinh, style: {width:$root.columnBNs()[5].width, fontWeight: 'bold'},visible:$root.columnBNs()[5].visible()"> </td>
+                                <td data-bind="text : KhoaDT, style: {width:$root.columnBNs()[6].width, fontWeight: 'bold'},visible:$root.columnBNs()[6].visible()"> </td>
+                                <td data-bind="text : TenBenh, style: {width:$root.columnBNs()[7].width, fontWeight: 'bold'},visible:$root.columnBNs()[7].visible()"> </td>
+                                <td data-bind="text : NgayVV, style: {width:$root.columnBNs()[8].width, fontWeight: 'bold'},visible:$root.columnBNs()[8].visible()"> </td>
+                                <td data-bind="text : NgayRV, style: {width:$root.columnBNs()[9].width, fontWeight: 'bold'},visible:$root.columnBNs()[9].visible()"> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row col-xs-12" style="text-align:right!important;">
+                    <div class="col-xs-8"></div>
+                    <div class="col-xs-1">
+                        <button type="submit" id="btnRefresh" data-bind="click:$root.RefreshDN" class="btn btn-large btn-primary"><span class="glyphicon glyphicon-refresh"></span>&nbsp;&nbsp;Refresh</button>
+                    </div>
+                    <div class="col-xs-1">
+                        <button type="submit" id="btnPrint" data-bind="click:$root.printDN" class="btn btn-large btn-primary  @(khaithac==false ? "" : "hidden")"><span class="glyphicon glyphicon-print"></span>&nbsp;&nbsp;In</button>
+                    </div>
+                    <div class="col-xs-1">
+                        <button type="submit" id="submitImport" data-bind="click:$root.SaveDN" class="btn btn-large btn-primary @(khaithac==false ? "" : "hidden")"><span class="glyphicon glyphicon-import"></span>&nbsp;&nbsp;Ghi</button>
+                    </div>
+                    <div class="col-xs-1"><button type="button" class="btn btn-large btn-outline-warning" id="btnclose" data-dismiss="modal">Đóng</button></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

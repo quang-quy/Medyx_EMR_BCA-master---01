@@ -1,0 +1,74 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Medyx_EMR_BCA.Models.DBConText.LoginViewModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login form</title>
+    <link href="~/Assets/Client/Login/css/font.css" rel="stylesheet" />
+    <link href="~/Assets/Client/Login/css/style.css" rel="stylesheet" />
+    <link href="~/Assets/Client/Login/css/reset.css" rel="stylesheet" />
+    <script src="~/Assets/Client/Login/js/modernizr.js"></script>
+    <script src="~/Assets/Client/AdminLTE/jQuery/jQuery-2.2.0.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#submit").on('click', function (e) {
+                var userName = $("#userName").val();
+                if (userName.length == 0) {
+                    alert("Tên đăng nhập không được để trống");
+                    $("#userName").focus();
+                    e.preventDefault(); // prevents default
+                    return false;
+                }
+                    
+            });
+        });
+    </script>
+</head>
+
+
+<body>
+    @*<div class="form">
+            <div class="forceColor"></div>
+            <div class="topbar">
+                <div class="spanColor"></div>
+                <input type="text" id="txtUser" placeholder="Nhập tài khoản" class="input" />
+                <input type="password" id="txtPass" placeholder="Nhập mật khẩu" class="input" />
+                <input type="checkbox" id="chkRemember" /> <label style="color: white"> Remember me</label>
+            </div>
+            <button class="submit" id="submit">Login</button>
+        </div>*@
+
+
+    @if (ViewBag.Message != null)
+    {
+        <script type="text/javascript">
+        //window.onload = function () {
+            alert("@Html.Raw(@ViewBag.Message)");
+        //};
+        </script>
+    }
+    @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+    {
+        <div id="error"></div>
+        <div class="form">
+            <div class="forceColor"></div>
+            <div class="topbar">
+                <div class="spanColor"></div>
+                @Html.TextBoxFor(model => model.userName, new { @class = "input", @placeholder = "Nhập tài khoản" })
+                @Html.PasswordFor(model => model.Password, new { @class = "input", @placeholder = "Nhập mật khẩu" })
+            </div>
+            <button class="submit" id="submit">Login</button>
+        </div>
+    }
+    <script src="~/Assets/client/Login/js/jquery.min.js"></script>
+    <script src="~/Assets/client/Login/js/index.js"></script>
+</body>
+</html>

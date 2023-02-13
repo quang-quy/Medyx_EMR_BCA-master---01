@@ -1,0 +1,22 @@
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+       $('#pagination').on('focus', 'a', function (e) {
+            $(this).addClass('fo');
+       });
+       $('#pagination').on('focusout', 'a', function (e) {
+           $(this).removeClass('fo');
+       });
+    });
+</script>
+<div class="row" style="padding-top:3px">
+    <div class="col-xs-7">
+        <div id="pagination" class="pagination pagination-custom" style="text-align:center;" tabindex="1">  </div>
+    </div>
+    <div class="col-xs-2">
+        <div><b> Số bản ghi trên một trang : </b></div>
+    </div>
+    <div class="col-xs-1"><input type="number" tabindex="1" title="Thay đổi số bản ghi hiển thị trong một trang" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" min="10" step="10" class="form-control" id="txtPageSize" data-bind="value:pageSize" /> </div>
+    <div class="col-xs-2">
+        <div><b> Tổng số bản ghi : <strong data-bind="text : tongSoBanGhi"></strong> </b></div>
+    </div>
+</div>

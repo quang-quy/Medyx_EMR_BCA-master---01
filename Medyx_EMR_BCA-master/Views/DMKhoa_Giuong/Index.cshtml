@@ -1,0 +1,69 @@
+﻿@{
+    ViewData["Title"] = "Danh mục giường";
+    Layout = "~/Views/Shared/_AdminLTE.cshtml";
+}
+@section scripts{
+    <script src="~/Assets/Client/ViewModel/DanhMuc/DMKhoa_GiuongViewModel.js"></script>
+}
+@{
+    Medyx_EMR_BCA.Models.DBConText.UserProfileSessionData Model = ViewData["UserProfileSessionData"] as Medyx_EMR_BCA.Models.DBConText.UserProfileSessionData;
+    var ListRoleSession = Model.ListRoleSession;
+    var QuyenXem = ListRoleSession.Where(x => x.ActionDetailsName == "/DMKhoa_Giuong/Index/Modify").Count() > 0 ? "true" : "false";
+    var ImportDanhMuc = ListRoleSession.Where(x => x.ActionDetailsName == "/DMKhoa_Giuong/Index/ImportDanhMuc").Count() > 0;
+    var ExportExcel = ListRoleSession.Where(x => x.ActionDetailsName == "/DMKhoa_Giuong/Index/ExportExcel").Count() > 0;
+}
+@*<input id="txtQuyenXem" type="hidden" value='@(HTC.WEB.NIOEH.Core.HTCCheckRoles.CheckQuyenAction("/Client/DMKhoa_Giuong/Modify")? "true" : "false")' />*@
+<input id="txtQuyenXem" type="hidden" value='@QuyenXem' />
+<div class="panel" style="overflow:hidden">
+    <div id="loader" data-bind="visible: loading()" class="loader loader-center">Loading...</div>
+    <div class="panel-body" style="padding-top:0px">
+        <div class="box-header" style="padding-top:0px;padding-bottom:0px">
+            <div class="row" style="padding-top:0px;padding-bottom:0px">
+                <div class="col-xs-8" style="padding:0px!important;margin:0px!important">
+                    <h4><b>DANH MỤC giường</b></h4>
+                </div>
+                <div class="col-xs-4" style="margin-top:5px; text-align:right;padding:0px" tabindex="3">
+                    @*<button title="Import dữ liệu" data-bind="click: $root.Import" class="btn btn-info btn-xs btnImport @(HTC.WEB.NIOEH.Core.HTCCheckRoles.CheckQuyenAction("/Client/DMKhoa_Giuong/ImportDanhMuc") ? "" : "hidden")"><span class="glyphicon glyphicon-import"></span>&nbsp;&nbsp;Import</button>
+                        <button title="Export dữ liệu" data-bind="click: $root.Export" class="btn btn-info btn-xs btnExport @(HTC.WEB.NIOEH.Core.HTCCheckRoles.CheckQuyenAction("/Client/DMKhoa_Giuong/ExportDMKhoa_Giuong") ? "" : "hidden")"><span class="glyphicon glyphicon-export"></span>&nbsp;&nbsp;Export</button>
+                        <button title="Filter" class="btn btn-info btn-xs btnFilter"><span class="glyphicon glyphicon-filter"></span>&nbsp;&nbsp;Filter</button>
+                        <button title="Thoát" class="btn btn-info btn-xs btnExit @(HTC.WEB.NIOEH.Core.HTCCheckRoles.CheckQuyenAction("") ? "" : "hidden")"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;F10 - Thoát</button>*@
+                    <button title="Xem" data-bind="click: $root.loadData" class="btn btn-info btn-xs btnControl-Print"><span class="glyphicon glyphicon-hd-video"></span>&nbsp;&nbsp;Xem</button>
+                    <button title="Import dữ liệu" data-bind="click: $root.Import" class="btn btn-info btn-xs btnImport @(ImportDanhMuc ? "" : "hidden")"><span class="glyphicon glyphicon-import"></span>&nbsp;&nbsp;Import</button>
+                    <button title="Export dữ liệu" data-bind="click: $root.Export" class="btn btn-info btn-xs btnExport @(ExportExcel ? "" : "hidden")"><span class="glyphicon glyphicon-export"></span>&nbsp;&nbsp;Export</button>
+                    <button title="Filter" class="btn btn-info btn-xs btnFilter"><span class="glyphicon glyphicon-filter"></span>&nbsp;&nbsp;Filter</button>
+                    <button title="Thoát" class="btn btn-info btn-xs btnExit"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;F10 - Thoát</button>
+                </div>
+            </div>
+        </div>
+        <div class="box-body" id="boxBody" style="padding-top:0px">
+            <div class="row" style="padding:0px;padding:0px">
+                <div class="col-xs-12">
+                    <label class="control-label col-xs-1">Chọn Khoa: </label>
+                    <div class="col-xs-3 col-sm-3">
+                        <div id="cbofKhoa" tabindex="4"></div>
+                    </div>
+                    <label class="control-label col-xs-1">: buồng</label>
+                    <div class="col-xs-1 col-sm-1">
+                        <div id="cbofBuong" tabindex="4"></div>
+                    </div>
+                    <div id="cboColumn" tabindex="4" style="text-align:right"></div>
+                </div>
+                <table id="table" class="table table-responsive table-fixed table-striped table-bordered responsive-utilities scroll jambo_table table-hover" style="padding:0px!important;margin:0px!important;height:500px!important">
+                    @*@{Html.RenderAction("TableHeader", "Home");}*@
+                    <partial name="~/Views/Shared/_TableHeader.cshtml" />
+                    <tbody id="tbody" class="table-tbody searchable table-container" style="overflow-x:hidden" data-bind="foreach: DMKhoa_Giuongs">
+                        <tr data-bind="template :{name: $root.displayMode, data : $data}, event: { dblclick:$root.edit, 'keyup': $root.upAndDown},click: $root.selectItem, css: {'danger':$root.selectedItem() == $data},attr: {id:$data.MaGiuong}" tabindex="1"></tr>
+                    </tbody>
+                </table>
+            </div>
+            @*@{Html.RenderAction("PagingTable", "Home");}*@
+            <partial name="~/Views/Shared/_PagingTable.cshtml" />
+            <div class="modal fade" id="importPopUp" role="dialog">
+                <div class="modal-dialog" style="width:800px!important">
+                    @*@{Html.RenderAction("ImportView", "Home");}*@
+                    <partial name="~/Views/Shared/_ImportView.cshtml" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "vue-cli-service build",
+    "serve": "vue-cli-service serve"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "core-js": "^3.8.3",
+    "element-ui": "2.15.7",
+    "file-saver": "^2.0.5",
+    "localforage": "^1.10.0",
+    "nprogress": "^0.2.0",
+    "portal-vue": "^2.1.7",
+    "vue": "^2.6.14",
+    "vue-debounce": "^4.0.0",
+    "vue-fragment": "^1.6.0",
+    "vue-quill-editor": "^3.0.6",
+    "vue-router": "^3.5.1",
+    "vuetify": "^2.6.0",
+    "vuetify-confirm": "^2.0.6",
+    "vuex": "^3.6.2"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-router": "~5.0.0",
+    "@vue/cli-plugin-vuex": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "babel-plugin-component": "^1.1.1",
+    "mini-css-extract-plugin": "^2.6.1",
+    "sass": "^1.32.7",
+    "sass-loader": "^12.0.0",
+    "vue-cli-plugin-vuetify": "~2.5.1",
+    "vue-template-compiler": "^2.6.14",
+    "vuetify-loader": "^1.7.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}

@@ -1,0 +1,809 @@
+{
+    "HoSoBenhAn":["Benhan", "ThongTinBN", "BenhAn_TienSuBenh", "BenhAn_TongKetBenhAn", "BenhAn_KhoaDieuTri"],
+    "NotDeletable": ["Benhan", "ThongTinBN", "BenhAn_FilePhiCauTruc", "BenhAn_TienSuBenh", "BenhAn_TongKetBenhAn", "BenhAn_KhoaDieuTri"],
+    "ExcludedCommonTables": [
+        "BenhAn_TV_BBKiemDiem_TV",
+        "BenhAn_TV_PhieuCDNguyenNhan",
+        "BenhAn_TV_GiayBaoTu"
+    ],
+    "Common": [
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["NguoiLap"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["NguoiSD"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["NguoiHuy"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        }
+    ],
+    "Benhan": [
+        {
+            "table": "Dmba_LoaiBa",
+            "primaryKeys": ["LoaiBa"],
+            "foreignKeys": ["MaLoaiBA"],
+            "column": "TenLoaiBA"
+        },
+        {
+            "table": "Dmkhoa",
+            "primaryKeys": ["MaKhoaVv"],
+            "foreignKeys": ["MaKhoa"],
+            "column": "TenKhoa"
+        },
+        {
+            "table": "Dmkhoa_Buong",
+            "primaryKeys": ["Buong", "MaKhoaVv"],
+            "foreignKeys": ["MaBuong", "MaKhoa"],
+            "column": "TenBuong"
+        },
+        {
+            "table": "Dmkhoa_Giuong",
+            "primaryKeys": ["Giuong", "Buong", "MaKhoaVv"],
+            "foreignKeys": ["MaGiuong","MaBuong","MaKhoa"],
+            "column": "TenGiuong"
+        },
+        {
+            "table": "Dmba_NoiGt",
+            "primaryKeys": ["NoiGt"],
+            "foreignKeys": ["MaNoiGT"],
+            "column": "TenNoiGT"
+        },
+        {
+            "table": "Dmba_ChuyenVien",
+            "primaryKeys": ["ChuyenVien"],
+            "foreignKeys": ["MaChuyenvien"],
+            "column": "TenChuyenvien"
+        },
+        {
+            "table": "DmbenhVien",
+            "primaryKeys": ["MaBvChuyenDen"],
+            "foreignKeys": ["MaBV"],
+            "column": "TenBV"
+        },
+        {
+            "table": "Dmba_HtraVien",
+            "primaryKeys": ["HtraVien"],
+            "foreignKeys": ["MaHTRaVien"],
+            "column": "TenHTRaVien"
+        },
+        {
+            "table": "DmbenhTat",
+            "primaryKeys": ["MaBenhNoiChuyenDenYHHD"],
+            "foreignKeys": ["MaBenh"],
+            "column": "TenBenh"
+        },
+        {
+            "table": "DmbenhTat",
+            "primaryKeys": ["MaBenhKKBYHHD"],
+            "foreignKeys": ["MaBenh"],
+            "column": "TenBenh"
+        },
+        {
+            "table": "DmbenhTat",
+            "primaryKeys": ["MaBenhKemVV1"],
+            "foreignKeys": ["MaBenh"],
+            "column": "TenBenh"
+        },
+        {
+            "table": "DmbenhTat",
+            "primaryKeys": ["MaBenhKemVV2"],
+            "foreignKeys": ["MaBenh"],
+            "column": "TenBenh"
+        },
+        {
+            "table": "DmbenhTat",
+            "primaryKeys": ["MaBenhKemVV3"],
+            "foreignKeys": ["MaBenh"],
+            "column": "TenBenh"
+        },
+        {
+            "table": "DmbenhTat",
+            "primaryKeys": ["MaBenhKemRV1"],
+            "foreignKeys": ["MaBenh"],
+            "column": "TenBenh"
+        },
+        {
+            "table": "DmbenhTat",
+            "primaryKeys": ["MaBenhKemRV2"],
+            "foreignKeys": ["MaBenh"],
+            "column": "TenBenh"
+        },
+        {
+            "table": "DmbenhTat",
+            "primaryKeys": ["MaBenhKemRV3"],
+            "foreignKeys": ["MaBenh"],
+            "column": "TenBenh"
+        },
+        {
+            "table": "DmbenhTatYhct",
+            "primaryKeys": ["MaBenhNoiChuyenDenYHCT"],
+            "foreignKeys": ["MaBenh"],
+            "column": "TenBenh"
+        },
+        {
+            "table": "DmbenhTatYhct",
+            "primaryKeys": ["MaBenhKKBYHCT"],
+            "foreignKeys": ["MaBenh"],
+            "column": "TenBenh"
+        },
+        {
+            "table": "DmbenhTatYhct",
+            "primaryKeys": ["MaBenhKemVV1YHCT"],
+            "foreignKeys": ["MaBenh"],
+            "column": "TenBenh"
+        },
+        {
+            "table": "DmbenhTatYhct",
+            "primaryKeys": ["MaBenhKemVV2YHCT"],
+            "foreignKeys": ["MaBenh"],
+            "column": "TenBenh"
+        },
+        {
+            "table": "DmbenhTatYhct",
+            "primaryKeys": ["MaBenhKemVV3YHCT"],
+            "foreignKeys": ["MaBenh"],
+            "column": "TenBenh"
+        },
+        {
+            "table": "DmbenhTatYhct",
+            "primaryKeys": ["MaBenhKemRV1YHCT"],
+            "foreignKeys": ["MaBenh"],
+            "column": "TenBenh"
+        },
+        {
+            "table": "DmbenhTatYhct",
+            "primaryKeys": ["MaBenhKemRV2YHCT"],
+            "foreignKeys": ["MaBenh"],
+            "column": "TenBenh"
+        },
+        {
+            "table": "DmbenhTatYhct",
+            "primaryKeys": ["MaBenhKemRV3YHCT"],
+            "foreignKeys": ["MaBenh"],
+            "column": "TenBenh"
+        },
+        {
+            "table": "DmbenhTat",
+            "primaryKeys": ["MaBenhGPTuThi"],
+            "foreignKeys": ["MaBenh"],
+            "column": "TenBenh"
+        },
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["BsDieuTri"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["GiamDoc"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["TruongKhoa"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        }
+    ],
+    "ThongTinBN": [
+        {
+            "table": "DmngheNghiep",
+            "primaryKeys": ["MaNgheNghiep"],
+            "foreignKeys": ["MaNN"],
+            "column": "TenNN"
+        },
+        {
+            "table": "DmdanToc",
+            "primaryKeys": ["MaDanToc"],
+            "foreignKeys": ["MaDanToc"],
+            "column": "TenDanToc"
+        },
+        {
+            "table": "DmquocGia",
+            "primaryKeys": ["MaQuocTich"],
+            "foreignKeys": ["MaQG"],
+            "column": "TenQG"
+        },
+        {
+            "table": "Dmtinh",
+            "primaryKeys": ["MaTinh"],
+            "foreignKeys": ["MaTinh"],
+            "column": "TenTinh"
+        },
+        {
+            "table": "DmphuongXa",
+            "primaryKeys": ["MaPxa"],
+            "foreignKeys": ["MaPxa"],
+            "column": "TenPXa"
+        },
+        {
+            "table": "DmquanHuyen",
+            "primaryKeys": ["MaHuyen"],
+            "foreignKeys": ["MaQH"],
+            "column": "TenQH"
+        },
+        {
+            "table": "DmdoiTuong",
+            "primaryKeys": ["DoiTuong"],
+            "foreignKeys": ["MaDT"],
+            "column": "TenDT"
+        }
+    ],
+    "BenhAn_TongKetBenhAn": [
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["BsDieuTri"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["NguoiGiaoHs"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["NguoiNhanHs"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        }
+    ],
+    "BenhAn_KhoaDieuTri": [
+        {
+            "table": "Dmkhoa",
+            "primaryKeys": ["MaKhoa"],
+            "foreignKeys": ["MaKhoa"],
+            "column": "TenKhoa"
+        },
+        {
+            "table": "Dmkhoa_Buong",
+            "primaryKeys": ["Buong", "MaKhoa"],
+            "foreignKeys": ["MaBuong", "MaKhoa"],
+            "column": "TenBuong"
+        },
+        {
+            "table": "Dmkhoa_Giuong",
+            "primaryKeys": ["Giuong", "Buong","MaKhoa"],
+            "foreignKeys": ["MaGiuong","MaBuong","MaKhoa"],
+            "column": "TenGiuong"
+        },
+        {
+            "table": "DmbenhTat",
+            "primaryKeys": ["MaBenhChinhVk"],
+            "foreignKeys": ["MaBenh"],
+            "column": "TenBenh"
+        },
+        {
+            "table": "DmbenhTat",
+            "primaryKeys": ["MaBenhKemVk1"],
+            "foreignKeys": ["MaBenh"],
+            "column": "TenBenh"
+        },
+        {
+            "table": "DmbenhTat",
+            "primaryKeys": ["MaBenhKemVk2"],
+            "foreignKeys": ["MaBenh"],
+            "column": "TenBenh"
+        },
+        {
+            "table": "DmbenhTat",
+            "primaryKeys": ["MaBenhKemVk3"],
+            "foreignKeys": ["MaBenh"],
+            "column": "TenBenh"
+        },
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["BsDieuTri"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        }
+    ],
+    "Benhan_CLS_KQCS": [
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["KTV"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["NguoiDuyetKQ"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "Dmkhoa",
+            "primaryKeys": ["MaKhoaThucHien"],
+            "foreignKeys": ["MaKhoa"],
+            "column": "TenKhoa"
+        },
+        {
+            "table": "DMDichVu",
+            "primaryKeys": ["MaDV"],
+            "foreignKeys": ["MaDV"],
+            "column": "TenDV"
+        }
+    ],
+    "BenhAnLuu": [],
+    "BenhAn_FilePhiCauTruc": [
+        {
+            "table": "Dmba_LoaiTaiLieu",
+            "primaryKeys": ["LoaiTaiLieu"],
+            "foreignKeys": ["MaLoaiTaiLieu"],
+            "column": "TenLoaiTaiLieu"
+        }
+    ],
+    "BenhAn_PhieuChamSoc": [
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["DieuDuong"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "Dmkhoa",
+            "primaryKeys": ["MaKhoa"],
+            "foreignKeys": ["MaKhoa"],
+            "column": "TenKhoa"
+        }
+    ],
+    "Benhan_TheodoiTruyenDich": [
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["BschiDinh"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["DieuDuong"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        }
+    ],
+    "BenhAn_HoiChan": [        
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["ChuToa"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["ThuKy"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        }
+    ],
+    "Benhan_CLS": [
+        {
+            "table": "DMDichVu",
+            "primaryKeys": ["MaDV"],
+            "foreignKeys": ["MaDV"],
+            "column": "TenDV"
+        },
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["BsChiDinh"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        }
+    ],
+    "BenhAn_PhauThuat_DuyetMo": [
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["Bspt"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["BsgayMe"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["TruongKhoa"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["LanhDaoBv"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        }
+    ],
+    "BenhAn_KhamVaoVien": [        
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["Bskham"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "DmdoiTuong",
+            "primaryKeys": ["DoiTuong"],
+            "foreignKeys": ["MaDT"],
+            "column": "TenDT"
+        },
+        {
+            "table": "Dmkhoa",
+            "primaryKeys": ["MaKhoaVv"],
+            "foreignKeys": ["MaKhoa"],
+            "column": "TenKhoa"
+        },
+        {
+            "table": "Dmkhoa",
+            "primaryKeys": ["MaKhoaKham"],
+            "foreignKeys": ["MaKhoa"],
+            "column": "TenKhoa"
+        },
+        {
+            "table": "DmbenhTat",
+            "primaryKeys": ["MaBenhNoiChuyenDen"],
+            "foreignKeys": ["MaBenh"],
+            "column": "TenBenh"
+        },
+        {
+            "table": "DmbenhTat",
+            "primaryKeys": ["ChanDoanKkb"],
+            "foreignKeys": ["MaBenh"],
+            "column": "TenBenh"
+        }
+    ],
+    "Benhan_ThuocYHCT_C": [
+        {
+            "table": "Dmthuoc",
+            "primaryKeys": ["MaThuoc"],
+            "foreignKeys": ["MaThuoc"],
+            "column": "TenTM"
+        }
+    ],
+    "BenhAn_TongKet15NgayDT": [
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["TruongKhoa"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["BsDieuTri"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        }
+    ],
+    "Benhan_CPM": [
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["BsChiDinh"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "DmchephamMau",
+            "primaryKeys": ["MaCpm"],
+            "foreignKeys": ["MaCPMau"],
+            "column": "TenCPMau"
+        }
+    ],
+    "Benhan_TTVLTL": [
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["BsChiDinh"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },        
+        {
+            "table": "DMDichVu",
+            "primaryKeys": ["MaDV"],
+            "foreignKeys": ["MaDV"],
+            "column": "TenDV"
+        } 
+    ],
+    "BenhAn_Thuoc_ThuPhanUng": [
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["NguoiThu"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["BsDocKq"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["BsChiDinh"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        }
+    ],
+    "Benhan_PhauThuat": [
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["BsChiDinh"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "DmphauThuat",
+            "primaryKeys": ["MaPt"],
+            "foreignKeys": ["MaPT"],
+            "column": "TenPT"
+        }
+    ],
+    "Benhan_TTVLTL_DotDieuTri": [
+        {
+            "table": "Dmba_LoaiBa",
+            "primaryKeys": ["LoaiBA"],
+            "foreignKeys": ["MaLoaiBA"],
+            "column": "TenLoaiBA"
+        },
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["BsDieuTri"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        }
+    ],
+    "BenhAn_TTVLTL_Thuchien": [
+        {
+            "table": "DMDichVu",
+            "primaryKeys": ["MaDV"],
+            "foreignKeys": ["MaDV"],
+            "column": "TenDV"
+        }
+    ],
+    "BenhAn_TheoDoiTruyenMau": [
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["DieuDuong"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["BsTheoDoi"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        }
+    ],
+    "BenhAn_CLS_KQ": [
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["BsChuyenKhoa"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        }
+    ],
+    "BenhAn_TV_BBKiemDiem_TV": [
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["MaNv"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["NguoiHuy"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        }
+    ],
+    "Benhan_PhauThuat_PhieuPTTT": [
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["BsPt"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["BsGayMe"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["BsPhuMo"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "Dmdichvu_PhanLoaiPttt",
+            "primaryKeys": ["PhanLoaiPt"],
+            "foreignKeys": ["MaPLPTTT"],
+            "column": "TenPLPTTT"
+        },
+        {
+            "table": "DmbenhTat",
+            "primaryKeys": ["ChanDoanTruocPt"],
+            "foreignKeys": ["MaBenh"],
+            "column": "TenBenh"
+        },
+        {
+            "table": "DmbenhTat",
+            "primaryKeys": ["ChanDoanSauPt"],
+            "foreignKeys": ["MaBenh"],
+            "column": "TenBenh"
+        }
+    ],
+    "BenhAn_TV_BBKiemDiem": [
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["ChuToa"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["ThuKy"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        }
+    ],
+    "BenhAn_KhamYHHD": [
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["BSKham"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        }
+    ],
+    "Benhan_ThuocTayY": [
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["BsChiDinh"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "Dmthuoc",
+            "primaryKeys": ["MaThuoc"],
+            "foreignKeys": ["MaThuoc"],
+            "column": "TenTM"
+        }
+    ],
+    "BenhAnh_PhieuChamSoc": [
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["DieuDuong"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "Dmkhoa",
+            "primaryKeys": ["MaKhoa"],
+            "foreignKeys": ["MaKhoa"],
+            "column": "TenKhoa"
+        }
+    ],
+    "BenhAn_ToDieuTri": [
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["BsDieuTri"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "Dmkhoa",
+            "primaryKeys": ["MaKhoa"],
+            "foreignKeys": ["MaKhoa"],
+            "column": "TenKhoa"
+        }
+    ],
+    "BenhAn_KhamSangLocDD": [
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["NguoiDg"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["BsDieuTri"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        }
+    ],
+    "Benhan_ThuocYHCT": [
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["BsChiDinh"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        }
+    ],
+    "BenhAn_KhamYHCT": [
+        {
+            "table": "DmbenhTatYhct",
+            "primaryKeys": ["MaBenhDanhTheoYhct"],
+            "foreignKeys": ["MaBenh"],
+            "column": "TenBenh"
+        }
+    ],
+    "BenhAn_TV_PhieuCDNguyenNhan": [
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["NguoiLapPhieu"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "DmbenhTat",
+            "primaryKeys": ["MaBenhNNTV"],
+            "foreignKeys": ["MaBenh"],
+            "column": "TenBenh"
+        },
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["NguoiLap"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["NguoiSD"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        }
+    ],
+    "Benhan_PhauThuat_PhieuKhamGayMeTruocMo": [
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["DieuDuong"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["BsGayMeKham"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["BsGayMeThamLaiTruocMo"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        }
+    ],
+    "BenhAn_KhamBenhYHHD": [],
+    "BenhAn_GiayChuyenTuyen": [],
+    "BenhAn_TienSuBenh": [],
+    "BenhAn_TheodoiTruyenMau_C": [],
+    "BenhAn_PhacDoDT": [],
+    "BenhAn_TaiBienPTTT": [],
+    "BenhAn_TV_GiayBaoTu": [
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["NguoiLap"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        },
+        {
+            "table": "DMNhanVien",
+            "primaryKeys": ["NguoiSD"],
+            "foreignKeys": ["MaNV"],
+            "column": "HoTen"
+        }
+    ],
+    "BenhAn_KhamBenhYHCT": []
+}

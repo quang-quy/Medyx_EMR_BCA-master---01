@@ -1,0 +1,20 @@
+﻿<div class="panel panel-primary">
+    <div class="panel-heading" style="padding:2px;margin:2px;">
+        <div class="col-xs-12">
+            <button type="button" class="btn btn-primary close" style="color:white" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title"><b>Import File</b></h4>
+        </div>
+    </div>
+    <div class="panel-body" id="cTBody" style="padding-top:2px;padding-bottom:2px;margin:2px">
+        <div class="row">  
+            <div class="col-xs-12">
+                <label class="control-label col-xs-2" style="text-align:right">Lựa chọn file: </label>
+                <div class="col-xs-6"><input type="file" class="form-control" name="importFile" id="importFile" accept=".xlsx" size="50" required></div>
+                <div class="col-xs-4">
+                    <input type="checkbox" id="importNhapMoi" name="importNhapMoi"><b>Nhập mới dữ liệu import</b>
+                    <button type="submit" id="submitImport" data-bind="click:$root.submitImport" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-import"></span>&nbsp;&nbsp;Import</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

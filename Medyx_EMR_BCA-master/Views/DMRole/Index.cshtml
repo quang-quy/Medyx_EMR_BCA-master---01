@@ -1,0 +1,132 @@
+﻿
+@{
+    ViewData["Title"] = "Phân nhóm quyền";
+    Layout = "~/Views/Shared/_AdminLTE.cshtml";
+}
+@section scripts{
+    <script src="~/Assets/Client/ViewModel/PhanQuyen/DMRoleViewModel.js"></script>
+}
+@{
+        Medyx_EMR_BCA.Models.DBConText.UserProfileSessionData Model = ViewData["UserProfileSessionData"] as Medyx_EMR_BCA.Models.DBConText.UserProfileSessionData;
+        var ListRoleSession = Model.ListRoleSession;
+        var QuyenXem = ListRoleSession.Where(x => x.ActionDetailsName == "/DMRole/Index/Modify").Count() > 0 ? "true" : "false";
+        var Create = ((ListRoleSession.Where(x => x.ActionDetailsName == "/DMRole/Index/Create").Count() > 0) || (ListRoleSession.Where(x => x.ActionDetailsName == "/DMRole/Index/Modify").Count() > 0));
+    
+    var ImportDanhMuc = ListRoleSession.Where(x => x.ActionDetailsName == "/DMRole/Index/ImportDanhMuc").Count() > 0;
+    var ExportExcel = ListRoleSession.Where(x => x.ActionDetailsName == "/DMRole/Index/ExportExcel").Count() > 0;
+}
+@*<input id="txtQuyenXem" type="hidden" value='@(HTC.WEB.NIOEH.Core.HTCCheckRoles.CheckQuyenAction("/Client/DMRole/Modify")? "true" : "false")' />*@
+<input id="txtQuyenXem" type="hidden" value="@QuyenXem" />
+<div class="panel" style="overflow:hidden">
+    <div id="loader" data-bind="visible: loading()" class="loader loader-center">Loading...</div>
+    <div class="panel-body" style="padding-top:0px">
+        <div class="box-header" style="padding-top:0px;padding-bottom:0px">
+            <div class="row" style="padding-top:0px;padding-bottom:0px">
+                <div class="col-xs-8" style="padding:0px!important;margin:0px!important">
+                    <h4><b>PHÂN NHÓM QUYỀN</b></h4>
+                </div>
+                <div class="col-xs-4" style="margin-top:5px; text-align:right;padding:0px" tabindex="3">
+                    @*<button title="Import dữ liệu" data-bind="click: $root.Import" class="btn btn-info btn-xs btnImport @(HTC.WEB.NIOEH.Core.HTCCheckRoles.CheckQuyenAction("/Client/DMRole/ImportDanhMuc") ? "" : "hidden")"><span class="glyphicon glyphicon-import"></span>&nbsp;&nbsp;Import</button>
+        <button title="Export dữ liệu" data-bind="click: $root.Export" class="btn btn-info btn-xs btnExport @(HTC.WEB.NIOEH.Core.HTCCheckRoles.CheckQuyenAction("/Client/DMRole/ExportExcel") ? "" : "hidden")"><span class="glyphicon glyphicon-export"></span>&nbsp;&nbsp;Export</button>
+        <button title="Filter" class="btn btn-info btn-xs btnFilter"><span class="glyphicon glyphicon-filter"></span>&nbsp;&nbsp;Filter</button>
+        <button title="Thoát" class="btn btn-info btn-xs btnExit @(HTC.WEB.NIOEH.Core.HTCCheckRoles.CheckQuyenAction("") ? "" : "hidden")"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;F10 - Thoát</button>*@
+                    @*<button title="Import dữ liệu" data-bind="click: $root.Import" class="btn btn-info btn-xs btnImport @(ImportDanhMuc ? "" : "hidden")"><span class="glyphicon glyphicon-import"></span>&nbsp;&nbsp;Import</button>
+        <button title="Export dữ liệu" data-bind="click: $root.Export" class="btn btn-info btn-xs btnExport @(ExportExcel ? "" : "hidden")"><span class="glyphicon glyphicon-export"></span>&nbsp;&nbsp;Export</button>*@
+                    <button title="Ghi" data-bind="click: $root.Save" class="btn btn-info btn-xs btnControl-Save @(Create ? "" : "hidden")"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Ghi</button>
+                    <button title="Filter" class="btn btn-info btn-xs btnFilter"><span class="glyphicon glyphicon-filter"></span>&nbsp;&nbsp;Filter</button>
+
+                    <button title="Thoát" class="btn btn-info btn-xs btnExit"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;F10 - Thoát</button>
+                </div>
+            </div>
+        </div>
+        <div class="box-body" id="boxBody" style="padding-top:0px">
+            <div class="row col-xs-12">
+                <div class="col-xs-1"> <label>Mã Role: </label></div>
+                <div class="col-xs-1"> <input type="text" id="txtMaRole" style="width:100%!important;" readonly></div>
+                <div class="col-xs-1"> <label>Tên Role: </label></div>
+                <div class="col-xs-2"> <input type="text" id="txtTenRole"></div>
+                <div class="col-xs-1"> <input type="checkbox" id="chkHuy"><label>Hủy</label></div>
+                <div class="col-xs-1"> <label>Ngày SĐ: </label></div>
+                <div class="col-xs-2"> <input type="text" id="txtNgaySD" readonly></div>
+                <div class="col-xs-1"> <label>Người SĐ: </label></div>
+                <div class="col-xs-2"> <input type="text" id="txtNguoiSD" readonly></div>
+            </div>
+            <div class="row col-xs-12">
+                <div class="col-xs-5-5 text-center"><label style="font-weight:bold">Chưa phân quyền</label></div>
+                <div class="col-xs-1"></div>
+                <div class="col-xs-5-5 text-center"><label style="font-weight:bold">Đã phân quyền</label></div>
+            </div>
+            <div class="row col-xs-12">
+                <div class="col-xs-4">
+                    <input type="checkbox" id="chkCChonAll">
+                    <label> Chọn tất cả&nbsp;&nbsp;&nbsp;</label>
+                    <input type="checkbox" id="chkCThem">
+                    <label> Thêm&nbsp;&nbsp;&nbsp;</label>
+                    <input type="checkbox" id="chkCSua">
+                    <label> Sửa&nbsp;&nbsp;&nbsp;</label>
+                    <input type="checkbox" id="chkCXoa">
+                    <label> Xóa&nbsp;&nbsp;&nbsp;</label>
+                    <input type="checkbox" id="chkCImport">
+                    <label> Import&nbsp;&nbsp;&nbsp;</label>
+                    <input type="checkbox" id="chkCExport">
+                    <label> Export&nbsp;&nbsp;&nbsp;</label>
+                </div>
+                <div class="col-xs-2" id="cboCAction">
+                </div>
+                <div class="col-xs-4">
+                    <input type="checkbox" id="chkDChonAll">
+                    <label> Chọn tất cả&nbsp;&nbsp;&nbsp;</label>
+                    <input type="checkbox" id="chkDThem">
+                    <label> Thêm&nbsp;&nbsp;&nbsp;</label>
+                    <input type="checkbox" id="chkDSua">
+                    <label> Sửa&nbsp;&nbsp;&nbsp;</label>
+                    <input type="checkbox" id="chkDXoa">
+                    <label> Xóa&nbsp;&nbsp;&nbsp;</label>
+                    <input type="checkbox" id="chkDImport">
+                    <label> Import&nbsp;&nbsp;&nbsp;</label>
+                    <input type="checkbox" id="chkDExport">
+                    <label> Export&nbsp;&nbsp;&nbsp;</label>
+                </div>
+                <div class="col-xs-2" id="cboDAction">
+                </div>
+            </div>
+            <div class="row" style="padding:0px;padding:0px">
+                <div class="col-xs-12">
+                    @*<div id="cboColumn" tabindex="4" style="text-align:right"></div>*@
+
+                </div>
+                <div class="col-xs-5-5">
+                    <table id="table" class="table table-responsive table-fixed table-striped table-bordered responsive-utilities scroll jambo_table table-hover" style="padding:0px!important;margin:0px!important;height:500px!important">
+                        @*@{Html.RenderAction("TableHeader", "Home");}*@
+                        <partial name="~/Views/Shared/_TableHeader.cshtml" />
+                        <tbody id="tbody" class="table-tbody searchable table-container" style="overflow-x:hidden" data-bind="foreach: DMRolesC">
+                            <tr data-bind="template :{name: 'read-template',data : $data}, event: {dblclick:$root.edit,'keyup': $root.upAndDown},click: $root.selectItem, css: {'danger':$root.selectedItem() == $data},attr: {id:$data.MenuId}" tabindex="1"></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-xs-1 text-center">
+                    </br></br>
+                    </br></br>
+
+                    <div class="row">
+                        <button id="btnMoveD" style="width:80%!important;" title=">"><span></span>&nbsp;&nbsp;>&nbsp;&nbsp;</button>
+                    </div>
+                    </br>
+                    <div class="row">
+                        <button id="btnMoveC" style="width:80%!important;" title="<"><span></span>&nbsp;&nbsp;< &nbsp;&nbsp;</button>
+                    </div>
+                </div>
+                <div class="col-xs-5-5">
+                    <table id="table2" class="table table-responsive table-fixed table-striped table-bordered responsive-utilities scroll jambo_table table-hover" style="padding:0px!important;margin:0px!important;height:500px!important">
+                        @*@{Html.RenderAction("TableHeader", "Home");}*@
+                        <partial name="~/Views/Shared/_TableHeader2.cshtml" />
+                        <tbody id="tbody2" class="table-tbody searchable table-container" style="overflow-x:hidden" data-bind="foreach: DMRolesD">
+                            <tr data-bind="template :{name: 'read-template2',data : $data}, event: {dblclick:$root.edit2, 'keyup': $root.upAndDown},click: $root.selectItem, css: {'danger':$root.selectedItem() == $data},attr: {id:$data.MenuId}" tabindex="1"></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            @*@{Html.RenderAction("PagingTable", "Home");}*@
+        </div>
+    </div>
+</div>

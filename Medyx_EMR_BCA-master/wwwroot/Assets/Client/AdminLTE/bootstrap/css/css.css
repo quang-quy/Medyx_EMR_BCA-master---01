@@ -1,0 +1,67 @@
+﻿.select2-result-label .wrap:before{
+    position:absolute;
+    left:4px;
+    font-family:fontAwesome;
+    color:#999;
+    content:"\f096";
+    width:25px;
+    height:25px;
+    
+}
+.select2-result-label .wrap.checked:before{
+    content:"\f14a";
+}
+.select2-result-label .wrap{
+    margin-left:15px;
+}
+
+/* not required css */
+
+.row
+{
+  padding: 0px;
+  margin-bottom:2px;
+}
+.has-error {
+    box-shadow: 0 1px 1px red inset, 0 0 8px red;
+    outline: 0 none;
+}
+input[type="checkbox"]:focus {   
+    box-shadow: 0 1px 1px red inset, 0 0 8px red;
+    outline: 0 none;
+}
+a.fo {
+    box-shadow: 0 1px 1px red inset, 0 0 8px red;
+    outline: 0 none;
+}
+.hidden {
+     display:none;
+}
+.dropdown-menu li a {
+	padding: 5px 15px;
+	font-weight: 300;
+}
+.multi-column-dropdown {
+	list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+.multi-column-dropdown li a {
+	display: block;
+	clear: both;
+	line-height: 1.428571429;
+	color: #333;
+	white-space: normal;
+}
+.multi-column-dropdown li a:hover {
+	text-decoration: none;
+	color: #262626;
+	background-color: #999;
+}
+ 
+@media (max-width: 767px) {
+	.dropdown-menu.multi-column {
+		min-width: 240px !important;
+		overflow-x: hidden;
+	}
+}

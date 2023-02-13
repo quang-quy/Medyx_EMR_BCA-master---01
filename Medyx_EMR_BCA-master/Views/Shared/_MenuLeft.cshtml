@@ -1,0 +1,199 @@
+﻿@*@model IEnumerable<Medyx_EMR_BCA.Models.DBConText.MenuUserVm>*@
+@using Medyx_EMR_BCA.Models.DBConText;
+@using Microsoft.AspNetCore.Http;
+@using System.Collections.Generic;
+@using System.Linq;
+@*@inject IHttpContextAccessor HttpContextAccessor*@
+@*@inject HttpContext HttpContext;*@
+@*<script type="text/javascript">
+        $('ul.sidebar-menu').focus();
+        var temp;
+        var per = true;
+        //$(document).ready(function () {
+        //    $('ul.sidebar-menu').focusin(function () {
+        //        menuHover();
+        //        $("body").css("overflow", "hidden");
+        //    });
+        //    $('ul.sidebar-menu').click(function () {
+        //        if (per == false) {
+        //            menuHover();
+        //        }
+        //        else {
+        //            menuLost();
+        //        }
+        //    });
+        //    $('ul.sidebar-menu').mouseover(function () {
+        //        menuHover();
+        //    });
+        //    $('ul.sidebar-menu').focusout(function () {
+        //        $("body").css("overflow", "auto");
+        //    });
+        //    $('ul.sidebar-menu').blur(function () {
+        //        menuLost();
+        //    });
+        //    //$('ul a').mouseover(function (event) {
+        //    //    $(temp).removeClass('active');
+        //    //    if ($(event.target).parents('li') != undefined) {
+        //    //        temp = $(event.target).parents('li');
+        //    //        //console.log($(temp).attr("id"));
+        //    //        hover($(temp));
+        //    //    }
+        //    //});
+        //    //$('ul a').mouseout(function (event) {
+        //    //    if ($(event.target).parents('li') != undefined) {
+        //    //        temp = $(event.target).closest('li');
+        //    //        //console.log("out "+$(temp).attr("id"));
+        //    //        lostFocus($(temp));
+        //    //    }
+        //    //});
+        //});
+        //$(document).keyup(function (e) {
+        //    e.preventDefault();
+        //    if (e.keyCode == 9)
+        //    {
+        //        per = false;
+        //        temp = undefined;
+        //        $('ul.sidebar-menu').focusout();
+        //    }
+        //    if(per==true){
+        //        if (temp == undefined||temp == $("#ulCha li").get(0)) {
+        //            temp = $("#ulCha li").get(0);
+        //            $("#ulCha li").each(function () {
+        //                if ($(this).hasClass('active')) $(this).removeClass('active');
+        //            });
+        //        }
+        //        if (e.keyCode == 38) {
+        //            if ($(temp).prev().length) {
+        //                $(temp).removeClass('active');
+        //                temp = $(temp).prev();
+        //                $(temp).addClass('active');
+        //            }
+        //            else if ($(temp).parent().is("ul")) {
+        //                if ($(temp).parent().prev().length) {
+        //                    $(temp).removeClass('active');
+        //                    temp = $(temp).parent().prev();
+        //                    temp = $("#" + $(temp).attr("id") + " li").get(0);
+        //                    $(temp).addClass('active');
+        //                }
+        //            }
+        //            return false;
+        //        }
+        //        else if (e.keyCode == 40) {
+        //            if ($(temp).next().length) {
+        //                $(temp).removeClass('active');
+        //                temp = $(temp).next();
+        //                $(temp).addClass('active');
+        //            }
+        //            else if ($(temp).parent().is("ul")) {
+        //                if ($(temp).parent().next().length) {
+        //                    $(temp).removeClass('active');
+        //                    temp = $(temp).parent().next();
+        //                    temp = $("#" + $(temp).attr("id") + " li").get(0);
+        //                    $(temp).addClass('active');
+        //                }
+        //            }
+        //            return false;
+        //        }
+        //        else if (e.keyCode == 37) {
+        //            if ($(temp).parent().length) {
+        //                $(temp).removeClass('active');
+        //                var temp1 = $(temp).parent();
+        //                temp = $(temp1).parent();
+        //                $(temp).removeClass('active');
+        //            }
+        //            return false;
+        //        }
+        //        else if (e.keyCode == 39) {
+        //            if ($(temp).children().length) {
+        //                var temp1 = $("#" + $(temp).attr("id")).get(0);
+        //                $(temp1).addClass('active');
+        //                temp = $("#" + $(temp).attr("id") + " li").get(0);
+        //                $(temp).addClass('active');
+        //            }
+        //            return false;
+        //        }
+        //        else if (e.keyCode == 13) {
+        //            if ($("#" + $(temp).attr("id") + " > a").attr("href") != undefined) {
+        //                var temp1 = $('#' + $(temp).attr("id") + " > a");
+        //                var url = $(temp1).attr("href");
+        //                window.location.href = url;
+        //            }
+        //            return false;
+        //        }
+        //        //$.AdminLTE.tree();
+        //    }
+        //});
+        //function hover(node)
+        //{
+        //    per = true;
+        //    $(node).addClass('active');
+        //    temp = $(node);
+        //    //console.log(node.target.id);
+        //}
+        //function menuHover() {
+        //    per = true;
+        //}
+        //function menuLost() {
+        //    per = false;
+        //}
+        //function lostFocus(node) {
+        //    $(node).removeClass('active');
+        //    if ($(temp).parent().length) {
+        //        var temp1 = $(temp).parent();
+        //        temp = $(temp1).parent();
+        //    }
+        //    else temp = undefined;
+        //}
+    </script>*@
+<ul id="ulCha" class="sidebar-menu">
+    @{
+        List<Medyx_EMR_BCA.Models.DBConText.MenuUserVm> Model = (ViewData["Menu"] as IEnumerable<Medyx_EMR_BCA.Models.DBConText.MenuUserVm>).ToList();
+    }
+    @if (Model.Count() > 0)
+    {
+        foreach (var item in Model)
+        {
+
+            if (item.Level == 1)
+            {
+                int lengMenu1 = item.MenuID.Length;
+                <li id=@item.MenuID>
+                    <a id="A_cap1">
+                        <i class="fa fa-windows"></i><span>@item.MenuName</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        @foreach (var item2 in Model)
+                        {
+                            if (item2.Level == 2)
+                            {
+                                if (item2.MenuID.Substring(0, @lengMenu1).Equals(item.MenuID))
+                                {
+                                    int lengMenu2 = item2.MenuID.Length;
+                                    <li id=@item2.MenuID>
+                                        <a href="@item2.ControllerName">@item2.MenuName</a>
+                                        @*<a href="#">@item2.MenuName</a>*@
+                                        @foreach (var item3 in Model)
+                                        {
+                                            if (item3.Level == 3 && item3.MenuID.Substring(0, @lengMenu2).Equals(item2.MenuID))
+                                            {
+                                                string ulid = "ul" + @item3.MenuID;
+                                                <ul id=@ulid class="treeview-menu">
+                                                    <li id=@item3.MenuID>
+                                                        <a href="@item3.ControllerName">@item3.MenuName</a>
+                                                        @*<a href="#">@item3.MenuName</a>*@
+                                                    </li>
+                                                </ul>
+                                            }
+                                        }
+
+                                    </li>
+                                }
+                            }
+                        }
+                    </ul>
+                </li>
+            }
+        }
+    }
+</ul>

@@ -1,0 +1,54 @@
+@using Newtonsoft.Json
+@{
+	Layout = "~/Views/Shared/_AdminLTE.cshtml";
+}
+
+@{
+	Medyx_EMR_BCA.Models.DBConText.UserProfileSessionData Model = ViewData["UserProfileSessionData"] as
+			Medyx_EMR_BCA.Models.DBConText.UserProfileSessionData;
+	var User = new Dictionary<string, dynamic>();
+	User.Add("id", Model.Pub_sNguoiSD);
+	User.Add("name", Model.Pub_sTenNguoiSD);
+	User.Add("is_admin", Model.Pub_bQadmin);
+	var a = JsonConvert.SerializeObject(User);
+}
+
+@section Client{
+<link rel="stylesheet" href="~/client/css/chunk-vendors.css">
+<script defer="defer" src="~/client/js/chunk-vendors.js"></script>
+<script defer="defer" src="~/client/js/app.js"></script>
+
+
+<style>
+	.v-application--wrap {
+		min-height: calc(100vh - 90px) !important;
+
+	}
+
+	.v-main {
+		max-height: calc(100vh - 90px) !important;
+		overflow-y: auto;
+	}
+
+	.el-table .cell {
+		word-break: keep-all !important;
+	}
+
+	hr {
+		margin: 0
+	}
+</style>
+}
+
+@RenderBody()
+
+
+<script>
+
+	const bodyEl = document.getElementsByTagName("body")[0];
+	if (!window.location.href.includes('HSBADS/Index')) {
+		bodyEl.classList.add("sidebar-collapse");
+	};
+	localStorage.setItem("currentUser", "@a".replace(/&quot;/g, '"'))
+	console.log("@a".replace(/&quot;/g, '"'));
+</script>

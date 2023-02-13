@@ -1,0 +1,14 @@
+﻿@{
+    Layout = "~/Views/HSBADS/_LayoutHSBDS.cshtml";
+}
+
+@{
+    Medyx_EMR_BCA.Models.DBConText.UserProfileSessionData Model = ViewData["UserProfileSessionData"] as
+            Medyx_EMR_BCA.Models.DBConText.UserProfileSessionData;
+    var ListRoleSession = Model.ListRoleSession;
+    var id = ViewData["id"];
+}
+
+<div id="app">
+    <thong-tin-benh-an id="@id" :permission="@(Newtonsoft.Json.JsonConvert.SerializeObject(ListRoleSession))" />
+</div>

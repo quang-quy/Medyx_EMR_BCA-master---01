@@ -1,0 +1,73 @@
+div.ift_rootdiv
+{
+	position:absolute;
+	z-index:8050;
+	overflow:auto;
+	overflow-x:hidden;
+}
+table.ift_table
+{
+	border:1px solid #999;
+	display:none;
+}
+table.ift_table caption
+{
+	background:#F8F800;
+	padding:6px;
+	float:left;
+}
+
+.ift_table, .ift_table tr, .ift_table th, .ift_table td
+{
+	border:1px solid #999;
+	border-collapse: collapse;
+}
+.ift_table .heading
+{
+	background:#DEEFEF;
+	padding:3px;
+	text-align:center;
+	color:#000;
+}
+.ift_table td
+{
+	padding:2px 0px 2px 5px;
+	cursor:pointer;
+}
+.ift_table td.first, .ift_table td.first_selectm
+{
+	padding-left:28px;
+	background   : url('../img/checks.png') no-repeat 0 0;
+}
+.ift_table tbody tr:hover,.ift_table tbody tr.active
+{
+	background:#3399FF;
+}
+.ift_table tbody tr.selected
+{
+	background:#3399FF !important;
+}
+.ift_table tbody tr:hover td.first,.ift_table tbody tr.active td.first, .ift_table tbody tr.selected td.first
+{
+	background-position : 0 -48px;
+}
+.ift_table tbody tr:hover td.first_selectm,.ift_table tbody tr.active td.first_selectm, .ift_table tbody tr.selected td.first_selectm
+{
+	background-position : 0 -24px;
+}
+.ift_table tr.even
+{
+	background:#FFF;
+}
+.ift_table tr.odd
+{
+	background:#EFEFEF;
+}
+.ift_table .visible
+{
+	display:table-row;
+}
+.ift_table .hidden
+{
+	display:none;
+}

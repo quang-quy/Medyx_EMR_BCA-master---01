@@ -1,0 +1,15 @@
+.v-application--wrap {
+    min-height: calc(100vh - 90px) !important;
+
+}
+
+.v-main {
+    max-height: calc(100vh - 90px) !important;
+    overflow-y: auto;
+}
+
+.el-table .cell {
+
+    word-break: keep-all !important;
+
+}

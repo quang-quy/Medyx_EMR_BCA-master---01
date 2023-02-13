@@ -1,0 +1,126 @@
+﻿.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+.loader-center {
+    margin-left: 50%;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.bodycontainer {
+    max-height: 450px;
+    width: 100%;
+    margin: 0;
+    overflow-y: auto;
+}
+
+.table-scrollable {
+    margin: 0;
+    padding: 0;
+}
+
+    .table-scrollable thead {
+    }
+
+/*.scroll {
+    border: 0;
+    border-collapse: collapse;
+}
+
+    .scroll tr {
+        display: flex;
+    }
+
+    .scroll th {
+        padding: 3px;
+        flex: auto;
+        border: 1px solid #aaa;
+        width: 1px;
+        word-wrap: break-word;
+    }
+
+    .scroll td {
+        padding: 3px;
+        flex: auto;
+        border: 1px solid #aaa;
+        width: 1px;
+        word-wrap: break-word;
+    }
+
+    .scroll thead tr:after {
+        content: '';
+        overflow-y: scroll;
+        visibility: hidden;
+        height: 0;
+    }
+
+    .scroll thead th {
+        flex: 1 auto;
+        display: block;
+        border: 1px solid #000;
+    }
+
+    .scroll tbody {
+        display: block;
+        width: 100%;
+        overflow-y: scroll;
+        overflow-x: auto;
+        height: 390px;
+    }*/
+
+.scrollWapper {
+    width: 100%;
+    height: 1200px;
+    overflow-y: auto;
+}
+
+.headerButtonTop {
+    width: 100%;
+    height: 50px;
+    padding: 8px;
+    margin-top: 35px;
+}
+
+.table-container {
+    height: 300px;
+}
+.scroll {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+    width: 100%;
+}
+.scroll thead {
+    flex: 0 0 auto;
+    width: calc(100% - 0.9em);
+}
+.scroll tbody {
+    flex: 1 1 auto;
+    display: block;
+    overflow-y: scroll;
+}
+.scroll tbody tr {
+    width: 100%;
+}
+.scroll thead,
+.scroll tbody tr {
+    display: table;
+    table-layout: fixed;
+}
+
+
+

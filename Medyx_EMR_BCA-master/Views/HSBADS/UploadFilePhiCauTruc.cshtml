@@ -1,0 +1,16 @@
+﻿@{
+    Layout = "~/Views/HSBADS/_LayoutHSBDS.cshtml";
+}
+
+@{
+    Medyx_EMR_BCA.Models.DBConText.UserProfileSessionData Model = ViewData["UserProfileSessionData"] as
+            Medyx_EMR_BCA.Models.DBConText.UserProfileSessionData;
+    var ListRoleSession = Model.ListRoleSession;
+    var QuyenXem = ListRoleSession.Where(x => x.ActionDetailsName == "/HSBA/Index/Modify").Count() > 0 ? "true" : "false";
+    var Create = ListRoleSession.Where(x => x.ActionDetailsName == "/HSBA/Index/Create").Count() > 0;
+    var id = ViewData["id"];
+}
+
+<div id="app">
+    <upload-file-phi-cau-truc :id="@id" :permission="@(Newtonsoft.Json.JsonConvert.SerializeObject(ListRoleSession))" />
+</div>
